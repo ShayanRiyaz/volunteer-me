@@ -2,7 +2,6 @@ import React from 'react';
 import { Box, Link } from '@chakra-ui/react';
 import { Table, Tr, Th, Td } from './Table';
 import { parseISO, format } from 'date-fns';
-import NextLink from 'next/link';
 
 const ProjectTable = ({ projects }) => {
   return (
@@ -26,9 +25,7 @@ const ProjectTable = ({ projects }) => {
         {projects.map((project) => (
           <Box as="tr" key={project.url}>
             <Td fontWeight="medium">{project.name}</Td>
-            <Td><Link href={project.url} isExternal>
-                {project.url}
-              </Link></Td>
+            <Td>{project.url}</Td>
             <Td>{project.projectFocus}</Td>
             {/* <Td>{format(parseISO(project.createdAt), 'PPpp')}</Td> */}
             <Td>{project.requiredVolunteers}</Td>
@@ -36,15 +33,10 @@ const ProjectTable = ({ projects }) => {
             <Td>{project.endDate}</Td>
             <Td>{project.city}, {project.country}</Td>
             {/* <Td>{project.country}</Td> */}
-              
-              <Td>
-              <NextLink 
-              href="/project/[pid]" 
-              as = {`/project/${project.pid}`} passHref>
+            <Td>
               <Link>View Volunteers</Link>
-              </NextLink>
-              </Td>
-              {/* <Td>{format(parseISO(site.createdAt), 'PPpp')}</Td> */}
+            </Td>
+
           </Box>
         ))}
       </tbody>

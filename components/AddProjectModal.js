@@ -33,24 +33,24 @@ const AddProjectModal = ({ children }) => {
 
   const onCreateProject = ({ name,
     url,
-    // projectFocus,
-    // requiredVolunteers,
-    // city,
-    // country,
-    // startDate,
-    // endDate 
+    projectFocus,
+    requiredVolunteers,
+    city,
+    country,
+    startDate,
+    endDate 
   }) => {
     const newProject = {
       authorId: auth.user.uid,
       createdAt: new Date().toISOString(),
       name,
-      url
-      // projectFocus,
-      // requiredVolunteers,
-      // city,
-      // country,
-      // startDate,
-      // endDate,
+      url,
+      projectFocus,
+      requiredVolunteers,
+      city,
+      country,
+      startDate,
+      endDate,
     };
     createProject(newProject);
     toast({
