@@ -2,72 +2,85 @@ import Head from 'next/head'
 import styles from '@/styles/Home.module.css'
 import { auth } from 'firebase';
 import { useAuth } from '@/lib/auth';
-
-import { FcGoogle } from 'react-icons/fc';
-
-// 1. import `ChakraProvider` component
-import { ChakraProvider, Button, Icon, Flex, Stack, Heading, Text, Code } from "@chakra-ui/react"
-
-import Link from 'next/link'
+import Footer from '@/components/Footer';
+import { Box, Button, Flex, Text, Icon, Link, Stack } from '@chakra-ui/react';
+import LoginButtons from '@/components/LoginButtons';
+import { Image } from "@chakra-ui/react"
 
 const Home = () => {
 
   const auth = useAuth();
   return (
-  <Flex
-    as="main"
-    direction="column"
-    align="center"
-    justify="center"
-    h="100vh"
-  >
-    <Head>
-      <title>Volunteer Me</title>
-      {/* <link rel="icon" href="/favicon.ico" /> */}
-    </Head>
-
-
-    <Icon color="black" name="logo" size="64px" />
-
-    {/* <Text>
-        Current user: <Code> {auth.user ? auth.user.email : 'None'}</Code>
-      </Text> */}
-
-    {/* <Stack direction="row" spacing={4}>
-        {auth?.user ? (
-        <Button leftIcon={<GoSignOut />} onClick={(e) => auth.signout()} colorScheme="red" variant="outline">
-          Sign Out
+    <>
+    <Box bg="gray.100" py={16}>
+      <Flex
+        as="main"
+        direction="column"
+        maxW="700px"
+        margin="0 auto"
+        
+      >
+        <Head>
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `
+              if (document.cookie && document.cookie.includes('volunteer-me-auth')) {
+                window.location.href = "/project"
+              }
+            `
+            }}
+          />
+        </Head>
+        <Image src="https://antreclimited.com/wp-content/uploads/2016/06/socialcare_icon-300x300.png" boxSize="110px" />
+        <Text mb={4} fontSize="lg" py={4}>
+          <Text as="span" fontWeight="bold" display="inline">
+            Volunteer Me
+    </Text>
+          {' is being built as part of '}
+          <Link
+            href="https://fellowship.mlh.io/"
+            isExternal
+            textDecoration="underline"
+          >
+            MLH-Fellowship
+            </Link>
+          {`. It's the easiest way to find volunteers for projects related to social work. It's still a work-in-progress, but you can try it out by logging in.`}
+        </Text>
+        {auth.user ? (
+          <Button
+            as="a"
+            href="/project"
+            backgroundColor="white"
+            color="gray.900"
+            variant="outline"
+            fontWeight="medium"
+            mt={4}
+            size="lg"
+            maxW="200px"
+            _hover={{ bg: 'gray.100' }}
+            _active={{
+              bg: 'gray.100',
+              transform: 'scale(0.95)'
+            }}
+          >
+            View Projects
           </Button>
-      ): (
-        <Button leftIcon={<FcGoogle />} onClick={(e) => auth.signInWithGoogle()} colorScheme="red" variant="solid">
-          Sign In
-          </Button>
-          
-      )}
-      </Stack> */}
-    {auth.user ? (
-      <Button as="a" href="/dashboard">
-        View Dashboard
-      </Button>
-    ) : (
-        <Button leftIcon={<FcGoogle />} mt={4} size="sm" onClick={(e) => auth.signInWithGoogle()}>
-          Sign In
-        </Button>
-      )}
-
-  </Flex>
-
-    // <footer className={styles.footer}>
-    //   <a
-    //     href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-    //     target="_blank"
-    //     rel="noopener noreferrer"
-    //   >
-    //     Powered by{' '}
-    //     <img src="/vercel.svg" alt="Vercel Logo" className={styles.logo} />
-    //   </a>
-    // </footer>
-
+        ) : (
+          <LoginButtons />
+          )}
+      </Flex>
+    </Box>
+         <Box
+        display="flex"
+        flexDirection="column"
+        width="full"
+        maxWidth="700px"
+        margin="0 auto"
+        mt={8}
+      >
+        </Box>
+    <Footer />
+    </> 
   );
 };
 export default Home;
